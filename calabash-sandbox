@@ -10,6 +10,23 @@ if [ "$(uname -s)" != "Darwin" ]; then
   exit 1
 fi
 
+is_command_in_path()
+{
+    command -v "$1" >/dev/null 2>&1
+}
+
+if is_command_in_path "rbenv"; then
+  echo "Detected that rbenv is already installed."
+  echo "You cannot use the calabash-sandbox."
+  exit 1
+fi
+
+if is_command_in_path "rvm"; then
+  echo "Detected that rvm is already installed."
+  echo "You cannot use the calabash-sandbox."
+  exit 1
+fi
+
 if [ "${1}" == "version" ]; then
   echo "Calabash sandbox version: ${SCRIPT_VERSION}"
   exit 0
