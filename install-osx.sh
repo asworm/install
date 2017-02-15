@@ -5,7 +5,24 @@ if [ "${SANDBOX_URL}" == "" ]; then
 fi
 
 if [ "$(uname -s)" != "Darwin" ]; then
-  echo "Calabash-sandbox only runs on Mac OSX"
+  echo "calabash-sandbox only runs on Mac OSX"
+  exit 1
+fi
+
+is_command_in_path()
+{
+    command -v "$1" >/dev/null 2>&1
+}
+
+if is_command_in_path "rbenv"; then
+  echo "Detected that rbenv is already installed."
+  echo "You cannot use the calabash-sandbox."
+  exit 1
+fi
+
+if is_command_in_path "rvm"; then
+  echo "Detected that rvm is already installed."
+  echo "You cannot use the calabash-sandbox."
   exit 1
 fi
 
@@ -15,7 +32,7 @@ CALABASH_RUBY_VERSION="2.3.1"
 SANDBOX="${HOME}/.calabash/sandbox"
 CALABASH_SANDBOX="calabash-sandbox"
 
-#Don't auto-overwrite the sandbox if it already exists
+# Don't auto-overwrite the sandbox if it already exists
 if [ -d "${SANDBOX}" ]; then
   echo "Sandbox already exists!"
   echo "Please delete the directory:"
