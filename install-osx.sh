@@ -75,9 +75,9 @@ rm "CalabashGems.zip"
 
 #ad hoc Gemfile
 echo "source 'https://rubygems.org'" > "${SANDBOX}/Gemfile"
-echo "gem 'calabash-cucumber', '>= 0.20.3', '< 1.0'" >> "${SANDBOX}/Gemfile"
-echo "gem 'calabash-android', '>= 0.8.4', '< 1.0'" >> "${SANDBOX}/Gemfile"
-echo "gem 'xamarin-test-cloud', '~> 2.1'" >> "${SANDBOX}/Gemfile"
+echo "gem 'calabash-cucumber', '>= 0.20.4', '< 1.0'" >> "${SANDBOX}/Gemfile"
+echo "gem 'calabash-android', '>= 0.9.0', '< 1.0'" >> "${SANDBOX}/Gemfile"
+echo "gem 'xamarin-test-cloud', '>= 2.1.1', '< 3.0'" >> "${SANDBOX}/Gemfile"
 
 #Download the Sandbox Script
 echo "Preparing sandbox..."
