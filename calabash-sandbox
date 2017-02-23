@@ -63,40 +63,16 @@ elif [ "${1}" == "update" ]; then
   fi
 fi
 
-CALABASH_RUBY_VERSION="2.3.1"
-CALABASH_RUBY_PATH="${HOME}/.calabash/sandbox/Rubies/${CALABASH_RUBY_VERSION}/bin"
-CALABASH_GEM_HOME="${HOME}/.calabash/sandbox/Gems"
-export GEM_HOME="${CALABASH_GEM_HOME}"
-export GEM_PATH="${CALABASH_GEM_HOME}:${CALABASH_GEM_HOME}/ruby/2.3.0"
+RUBY_VERSION="2.3.1"
+RUBIES_DIR="${SANDBOX_DIR}/Rubies"
+RUBY_PATH="${RUBIES_DIR}/${RUBY_VERSION}/bin"
+RUBY_LIB="${RUBIES_DIR}/${RUBY_VERSION}/lib"
+export GEM_HOME="${SANDBOX_DIR}/Gems"
+export GEM_PATH="${RUBY_LIB}/ruby/gems/2.3.0:${GEM_HOME}:${GEM_HOME}/ruby/2.3.0"
+OPENSSL_LIB="${RUBIES_DIR}/${RUBY_VERSION}/openssl/lib"
+export RUBYLIB="${OPENSSL_LIB}:${RUBY_LIB}:${RUBY_LIB}/ruby/2.3.0/x86_64-darwin16:${RUBY_LIB}/ruby/2.3.0:${RUBY_LIB}/ruby/site_ruby/2.3.0"
+export PATH="${RUBY_PATH}:${GEM_HOME}/bin:${PATH}"
 
-PATH="${CALABASH_RUBY_PATH}:${GEM_HOME}/bin:${PATH}"
-
-for dir in `echo "${PATH}" | sed "s/:/ /g"`
-do
-  rbenv=`echo "${dir}" | grep .rbenv`
-  if [ -n "${rbenv}" ]; then
-      #echo "INFO: found '.rbenv' in path: ${dir} - skipping"
-      continue
-  fi
-
-  rvm=`echo "${dir}" | grep .rvm`
-  if [ -n "${rvm}" ]; then
-      # echo "INFO: found '.rvm' in path: ${dir} - skipping"
-      continue
-  fi
-
-  COMPOSED_PATH="${COMPOSED_PATH}:${dir}"
-done
-
-#Need to ensure adb is accessible for android
-command -v adb > /dev/null
-if [ $? -eq 0 ]; then
-  ADB=$(dirname $(which adb))
-  COMPOSED_PATH="${COMPOSED_PATH}:${ADB}"
-fi
-
-export PATH="${COMPOSED_PATH}"
-unset COMPOSED_PATH
 export PS1='\[\e[1;32m\][\u@calabash-sandbox]\$\[\e[0m\] ' # '[<user>@calabash-sandbox]$ '
 echo -e "\033[0;32mThis terminal is now ready to use with Calabash.\033[00m"
 echo -e "\033[0;34mTo exit, type 'exit'.\033[00m"
