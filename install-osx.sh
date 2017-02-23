@@ -41,7 +41,14 @@ function banner {
 }
 
 if [ "$(uname -s)" != "Darwin" ]; then
-  echo "calabash-sandbox only runs on Mac OSX"
+  error "calabash-sandbox only runs on Mac OSX"
+  exit 1
+fi
+
+OS_MAJOR_VERSION=`uname -r | cut -d. -f1`
+
+if [ "${OS_MAJOR_VERSION}" != "16" ]; then
+  echo "Calabash-sandbox is only supported on macOS Sierra"
   exit 1
 fi
 
