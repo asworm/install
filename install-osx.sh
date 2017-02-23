@@ -75,14 +75,16 @@ CALABASH_RUBY_VERSION="2.3.1"
 SANDBOX="${HOME}/.calabash/sandbox"
 CALABASH_SANDBOX="calabash-sandbox"
 
-# Don't auto-overwrite the sandbox if it already exists
-if [ -d "${SANDBOX}" ]; then
-  echo "Sandbox already exists!"
-  echo "Please delete the directory:"
-  echo ""
-  echo "  ${SANDBOX}"
-  echo ""
-  echo "and try again."
+
+if [ -d "${SANDBOX_DIR}" ]; then
+  error "Sandbox already exists!"
+  error ""
+  error "If you want to update your sandbox:"
+  error "  $ calabash-sandbox update"
+  error ""
+  error "If you want to reinstall the sandbox:"
+  error "  $ rm -r ${SANDBOX_DIR}"
+  error "and try again"
   exit 1
 fi
 
