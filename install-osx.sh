@@ -1,8 +1,44 @@
 #!/usr/bin/env bash
 
-if [ "${SANDBOX_URL}" == "" ]; then
-  SANDBOX_URL="https://raw.githubusercontent.com/calabash/install/master/calabash-sandbox"
-fi
+# Green
+function info {
+  if [ "${TERM}" = "dumb" ]; then
+    echo "INFO: $1"
+  else
+    echo "$(tput setaf 2)INFO: $1$(tput sgr0)"
+  fi
+}
+
+# Yellow
+function warn {
+  if [ "${TERM}" = "dumb" ]; then
+    echo "WARN: $1"
+  else
+    echo "$(tput setaf 3)WARN: $1$(tput sgr0)"
+  fi
+}
+
+# Red
+function error {
+  if [ "${TERM}" = "dumb" ]; then
+    echo "ERROR: $1"
+  else
+    echo "$(tput setaf 1)ERROR: $1$(tput sgr0)"
+  fi
+}
+
+# Magenta
+function banner {
+  if [ "${TERM}" = "dumb" ]; then
+    echo ""
+    echo "######## $1 ########"
+    echo ""
+  else
+    echo ""
+    echo "$(tput setaf 5)######## $1 ########$(tput sgr0)"
+    echo ""
+  fi
+}
 
 if [ "$(uname -s)" != "Darwin" ]; then
   echo "calabash-sandbox only runs on Mac OSX"
