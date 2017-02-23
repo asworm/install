@@ -2,7 +2,7 @@
 
 SCRIPT_VERSION="1.0.0"
 
-SANDBOX="${HOME}/.calabash/sandbox"
+SANDBOX_DIR="${HOME}/.calabash/sandbox"
 THIS_SCRIPT=$(basename $0)
 
 if [ "$(uname -s)" != "Darwin" ]; then
@@ -39,7 +39,7 @@ if [ "${1}" == "version" ]; then
   exit 0
 elif [ "${1}" == "update" ]; then
   echo "Updating gems..."
-  cd "${SANDBOX}"
+  cd "${SANDBOX_DIR}"
   curl -O --fail --progress-bar \
     https://raw.githubusercontent.com/calabash/install/master/Gemfile.OSX 2> /dev/null
 
