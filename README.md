@@ -9,7 +9,7 @@ Test Cloud, so you don't need to worry about ruby compatibilities.
 ## System Requirements
 
 Calabash Sandbox requires one of the following operating systems:
-- OSX El Cap and Sierria
+- macOS Sierra
 - Windows 10
 
 The sandbox is not officially supported on other OS versions.
