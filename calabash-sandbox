@@ -6,7 +6,14 @@ SANDBOX="${HOME}/.calabash/sandbox"
 THIS_SCRIPT=$(basename $0)
 
 if [ "$(uname -s)" != "Darwin" ]; then
-  echo "Calabash-sandbox only runs on Mac OSX"
+  echo "Calabash-sandbox only runs on macOS"
+  exit 1
+fi
+
+OS_MAJOR_VERSION=`uname -r | cut -d. -f1`
+
+if [ "${OS_MAJOR_VERSION}" != "16" ]; then
+  echo "Calabash-sandbox is only supported on macOS Sierra"
   exit 1
 fi
 
