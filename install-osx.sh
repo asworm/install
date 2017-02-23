@@ -58,14 +58,14 @@ is_command_in_path()
 }
 
 if is_command_in_path "rbenv"; then
-  echo "Detected that rbenv is already installed."
-  echo "You cannot use the calabash-sandbox."
+  error "Detected that rbenv is already installed."
+  error "You cannot use the calabash-sandbox."
   exit 1
 fi
 
 if is_command_in_path "rvm"; then
-  echo "Detected that rvm is already installed."
-  echo "You cannot use the calabash-sandbox."
+  error "Detected that rvm is already installed."
+  error "You cannot use the calabash-sandbox."
   exit 1
 fi
 
