@@ -12,8 +12,8 @@ fi
 
 OS_MAJOR_VERSION=`uname -r | cut -d. -f1`
 
-if [ "${OS_MAJOR_VERSION}" != "16" ]; then
-  echo "Calabash-sandbox is only supported on macOS Sierra"
+if [ "${OS_MAJOR_VERSION}" != "15" ] && [ "${OS_MAJOR_VERSION}" != "16" ]; then
+  echo "Calabash-sandbox is only supported on macOS El Cap and Sierra"
   exit 1
 fi
 
