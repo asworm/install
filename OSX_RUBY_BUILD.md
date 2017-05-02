@@ -50,6 +50,8 @@ $ PREFIX=~/ ./install.sh
 
 ```
 $ cd ~/git/ruby-build
+$ git checkout master
+$ git pull
 
 # Ensure the Xcode version
 $ xcrun xcodebuild -version
