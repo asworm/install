@@ -47,8 +47,14 @@ fi
 
 OS_MAJOR_VERSION=`uname -r | cut -d. -f1`
 
-if [ "${OS_MAJOR_VERSION}" != "16" ]; then
-  echo "Calabash-sandbox is only supported on macOS Sierra"
+if [ "${OS_MAJOR_VERSION}" = "15" ]; then
+  MACOS="macOS-10.11"
+  DARWIN_VERSION="darwin15"
+elif [ "${OS_MAJOR_VERSION}" = "16" ]; then
+  MACOS="macOS-10.12"
+  DARWIN_VERSION="darwin16"
+else
+  error "calabash-sandbox only runs on macOS El Cap and Sierra"
   exit 1
 fi
 
@@ -77,7 +83,7 @@ RUBY_LIB="${RUBIES_DIR}/${RUBY_VERSION}/lib"
 export GEM_HOME="${SANDBOX_DIR}/Gems"
 export GEM_PATH="${RUBY_LIB}/ruby/gems/2.3.0:${GEM_HOME}:${GEM_HOME}/ruby/2.3.0"
 OPENSSL_LIB="${RUBIES_DIR}/${RUBY_VERSION}/openssl/lib"
-export RUBYLIB="${OPENSSL_LIB}:${RUBY_LIB}:${RUBY_LIB}/ruby/2.3.0/x86_64-darwin16:${RUBY_LIB}/ruby/2.3.0:${RUBY_LIB}/ruby/site_ruby/2.3.0"
+export RUBYLIB="${OPENSSL_LIB}:${RUBY_LIB}:${RUBY_LIB}/ruby/2.3.0/x86_64-${DARWIN_VERSION}:${RUBY_LIB}/ruby/2.3.0:${RUBY_LIB}/ruby/site_ruby/2.3.0"
 
 if [ -d "${SANDBOX_DIR}" ]; then
   error "Sandbox already exists!"
@@ -93,12 +99,12 @@ fi
 
 set -e
 
-banner "Installing Ruby ${RUBY_VERSION}"
+banner "Installing Ruby ${RUBY_VERSION} for ${MACOS}"
 
 mkdir -p "${GEM_HOME}"
 mkdir -p "${RUBIES_DIR}"
 
-URL="https://s3-eu-west-1.amazonaws.com/calabash-files/${RUBY_VERSION}.zip"
+URL="https://s3-eu-west-1.amazonaws.com/calabash-files/compiled-rubies/${RUBY_VERSION}/${MACOS}/${RUBY_VERSION}.zip"
 curl -o "${RUBY_VERSION}.zip" --progress-bar "${URL}"
 
 unzip -qo "${RUBY_VERSION}.zip" -d "${RUBIES_DIR}"
@@ -107,41 +113,41 @@ rm "${RUBY_VERSION}.zip"
 OPENSSL_DIR="${HOME}/.calabash/sandbox/Rubies/2.3.1/openssl"
 SSL_DYLIB="${OPENSSL_DIR}/lib/libssl.1.0.0.dylib"
 CRYPTO_DYLIB="${OPENSSL_DIR}/lib/libcrypto.1.0.0.dylib"
-RUBY_OPENSSL_BUNDLE="${RUBY_LIB}/ruby/2.3.0/x86_64-darwin16/openssl.bundle"
-RUBY_DIGEST_DIR="${RUBY_LIB}/ruby/2.3.0/x86_64-darwin16/digest"
+RUBY_OPENSSL_BUNDLE="${RUBY_LIB}/ruby/2.3.0/x86_64-${DARWIN_VERSION}/openssl.bundle"
+RUBY_DIGEST_DIR="${RUBY_LIB}/ruby/2.3.0/x86_64-${DARWIN_VERSION}/digest"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libssl.1.0.0.dylib" \
   "${SSL_DYLIB}" \
   "${RUBY_OPENSSL_BUNDLE}"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_OPENSSL_BUNDLE}"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_DIGEST_DIR}/md5.bundle"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_DIGEST_DIR}/rmd160.bundle"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_DIGEST_DIR}/sha1.bundle"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_DIGEST_DIR}/sha2.bundle"
 
 chmod +w "${SSL_DYLIB}"
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${SSL_DYLIB}"
