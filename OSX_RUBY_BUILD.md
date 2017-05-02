@@ -28,6 +28,10 @@ $ exit
 # 4. Check the PATH
 $ su -l clean
 $ echo $PATH
+
+# 5. Install ~/.gemrc
+install: --no-document --env-shebang
+update:  --no-document --env-shebang
 ```
 
 ### 2. Install ruby-build from sources
