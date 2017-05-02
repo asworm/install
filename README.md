@@ -1,14 +1,29 @@
 ## Calabash Sandbox
 
-To get up and running as fast as possible to use Calabash, we recommend you
-use our Ruby Sandbox. The sandbox is a pre-configured ruby environment that
-has everything you need to start exploring Calabash and running tests right away.
-The sandbox is configured with the same version of Ruby running on Xamarin's
-Test Cloud, so you don't need to worry about ruby compatibilities.
+We recommend that you use rbenv installed with homebrew.
+
+https://github.com/calabash/calabash-ios/wiki/Ruby-on-MacOS
+
+The `calabash-sandbox` tool is no longer maintained. You can still use the
+sandbox, but the ruby version and the base Gemfile will not be updated.
+To keep your gems up to date, use bundler and Gemfile.
+
+```
+$ cd ~/my/project
+
+# Update your Gemfile to point to the version of the gems you want.
+# gem "calabash-cucumber", "0.20.5"
+# gem "calabash-android", "0.9.1"
+
+$ calabash-sandbox
+[me@calabash-sandbox]$ bundle update
+```
 
 ## System Requirements
 
 Calabash Sandbox requires one of the following operating systems:
+
+- macOS El Cap
 - macOS Sierra
 - Windows 10
 
