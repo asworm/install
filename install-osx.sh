@@ -116,38 +116,38 @@ CRYPTO_DYLIB="${OPENSSL_DIR}/lib/libcrypto.1.0.0.dylib"
 RUBY_OPENSSL_BUNDLE="${RUBY_LIB}/ruby/2.3.0/x86_64-${DARWIN_VERSION}/openssl.bundle"
 RUBY_DIGEST_DIR="${RUBY_LIB}/ruby/2.3.0/x86_64-${DARWIN_VERSION}/digest"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libssl.1.0.0.dylib" \
   "${SSL_DYLIB}" \
   "${RUBY_OPENSSL_BUNDLE}"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_OPENSSL_BUNDLE}"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_DIGEST_DIR}/md5.bundle"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_DIGEST_DIR}/rmd160.bundle"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_DIGEST_DIR}/sha1.bundle"
 
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${RUBY_DIGEST_DIR}/sha2.bundle"
 
 chmod +w "${SSL_DYLIB}"
-install_name_tool -change \
+xcrun install_name_tool -change \
   "/Users/clean/2.3.1/openssl/lib/libcrypto.1.0.0.dylib" \
   "${CRYPTO_DYLIB}" \
   "${SSL_DYLIB}"
