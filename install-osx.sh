@@ -50,7 +50,7 @@ OS_MAJOR_VERSION=`uname -r | cut -d. -f1`
 if [ "${OS_MAJOR_VERSION}" = "15" ]; then
   MACOS="macOS-10.11"
   DARWIN_VERSION="darwin15"
-elif [ "${OS_MAJOR_VERSION}" = "16" ]; then
+elif [ "${OS_MAJOR_VERSION}" = "16" ] || [ "${OS_MAJOR_VERSION}" = "17" ]; then
   MACOS="macOS-10.12"
   DARWIN_VERSION="darwin16"
 else
